@@ -1,4 +1,5 @@
-const port = 4000;
+require("dotenv").config();
+const port = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -12,7 +13,13 @@ app.use(express.json());
 app.use(cors());
 
 // Database connection with mongoDB
-mongoose.connect("mongodb+srv://saishivajanjirala:Nani1234@cluster0.mdql7.mongodb.net/e-commerce");
+mongoose.connect(process.env.MONGO_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+})
+.then(() => console.log("MongoDB connected"))
+.catch(err => console.error("MongoDB connection error:", err));
+
 
 
 //API creation
@@ -187,7 +194,7 @@ app.post('/signup',async (req,res) =>{
         }
     }
 
-    const token = jwt.sign(data, 'secret_ecom');
+    const token = jwt.sign(data, process.env.JWT_SECRET);
     res.json({success:true,token})
 
 
