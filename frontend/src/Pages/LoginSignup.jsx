@@ -5,7 +5,7 @@ import './CSS/LoginSignup.css';
 const LoginSignup = () =>{
 
 
-    const [state,setState] = useState("Login");
+    const [state,setState] = useState("Sign Up");
 
     const [formData,setFormData] = useState({
         username:"",
